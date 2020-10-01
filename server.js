@@ -18,7 +18,7 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
     console.log('Connected to Database')
     const db = client.db('sertis-test')
     const cardCollection = db.collection('cards')
-
+    //Create Card
     app.post('/createCards', (req, res) => {
         cardCollection.insertOne(req.body)
             .then(result => {
@@ -36,8 +36,8 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
         })
         .catch(error => console.error(error))
     })
-
-    app.post('/editCards', (req, res) => {
+    //Edit Card
+    app.put('/editCards', (req, res) => {
         cardCollection.findOneAndUpdate(
             { author: req.body.author },
             {
@@ -48,50 +48,35 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
                     category: req.body.category,
                 }
             }
-            // { upsert: true }
         )
-        .then(result => {
-            // console.log(result)
-            res.json('Success')
+        .then(editedCard => {
+            if(editedCard){
+                res.json("Edited Card")
+            }
+            else{
+                res.json("No Card to Edit")
+            }
+
         })
         .catch(error => console.error(error))
     })
-
-    // app.put('/quotes', (req, res) => {
-    //     cardCollection.findOneAndUpdate(
-    //         { name: 'Yoda' },
-    //         {
-    //             $set: {
-    //                 name: req.body.name,
-    //                 quote: req.body.quote
-    //             }
-    //         },
-    //         { upsert: true }
-    //     )
-    //     .then(result => {
-    //         // console.log(result)
-    //         // res.json('Success')
-    //         res.json('Success')
-    //     })
-    //     .catch(error => console.error(error))
-    // })
-
+    //Delete Card
     app.delete('/deleteCards', (req, res) => {
-
         cardCollection.deleteOne(
           { author: req.body.author,
             name: req.body.name,
             status: req.body.status,
             content: req.body.content,
-            category: req.body.category, 
+            category: req.body.category
             }
         )
         .then(result => {
             // console.log(result)
+            console.log(result.deletedCount)
             if (result.deletedCount === 0) {
-              return res.json('No Card to Delete')
+                return res.json('No Card to Delete')
             }
-            res.json(`Delete Card`)
+            res.json('Deleted Card')
         })
         .catch(error => console.error(error))
     })

@@ -3,11 +3,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Star Wars Quote App</title>
+    <title>Sertis Test</title>
   </head>
 
   <body>
-    <h1>May Node and Express be with you.</h1>
+    <h1>Sertis Test</h1>
     <h2>Create Card</h2>
     <form action="/createCards" method="POST">
       <input type="text" placeholder="name" name="name" />
@@ -17,42 +17,21 @@
       <input type="text" placeholder="author" name="author" />
       <button type="submit">Submit</button>
     </form>
-    <h2> Card Data </h2>
-
-    <ul class="cards">
-    <!-- Loop through quotes -->
-    <% for(var i = 0; i < cards.length; i++) {%>
-        <li class="cards">
-        <!-- Output name from the iterated quote object -->
-        <span>Name :</span>
-        <span><%= cards[i].name %></span><br>
-        <!-- Output quote from the iterated quote object -->
-        <span>Status :</span>
-        <span><%= cards[i].status %></span><br>
-        <span>Content :</span>
-        <span><%= cards[i].content %></span><br>
-        <span>Category :</span>
-        <span><%= cards[i].category %></span><br>
-        <span>Author :</span>
-        <span><%= cards[i].author %></span><br>
-        </li>
-    <% } %>
-    </ul>
     <div>
         <h2>Edit Card</h2>
         <p>
           Edit Card Information with author ownership
         </p>
-        <form action="/editCards" method="POST">
+        <form id="edit-form">
             <input type="text" placeholder="name" name="name" />
             <input type="text" placeholder="status" name="status" />
             <input type="text" placeholder="content" name="content" />
             <input type="text" placeholder="category" name="category" />
             <input type="text" placeholder="author" name="author" />
-            <button type="submit">Edit Card</button>
         </form>
-        <!-- <button id="update-button">Replace Yoda's quote</button> -->
+        <button id="edit-button">Edit Card</button>
     </div>
+    <div id="editMessage"></div>
     <div>
         <h2>Remove Card</h2>
         <p>
@@ -64,10 +43,33 @@
             <input type="text" placeholder="content" name="content" />
             <input type="text" placeholder="category" name="category" />
             <input type="text" placeholder="author" name="author" />
-            <button id="delete-button">Delete Card</button>
         </form>
+        <button id="delete-button">Delete Card</button>
     </div>
-    <div id="message"></div>
+    <div id="deleteMessage"></div>
+    <div>
+        <h2> Card Data </h2>
+
+        <ul class="cards">
+        <!-- Loop through quotes -->
+        <% for(var i = 0; i < cards.length; i++) {%>
+            <li class="cards">
+            <!-- Output name from the iterated quote object -->
+            <span>Name :</span>
+            <span><%= cards[i].name %></span><br>
+            <!-- Output quote from the iterated quote object -->
+            <span>Status :</span>
+            <span><%= cards[i].status %></span><br>
+            <span>Content :</span>
+            <span><%= cards[i].content %></span><br>
+            <span>Category :</span>
+            <span><%= cards[i].category %></span><br>
+            <span>Author :</span>
+            <span><%= cards[i].author %></span><br>
+            </li>
+        <% } %>
+        </ul>
+    </div>
     <script src="/main.js"></script>
   </body>
 </html>
