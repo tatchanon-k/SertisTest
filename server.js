@@ -13,11 +13,13 @@ app.listen(3000, function() {
     console.log('listening on 3000')
 })
 
+//Connect MongoDB via Free MongoDB Atlas
 MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
     if (err) return console.error(err)
     console.log('Connected to Database')
     const db = client.db('sertis-test')
     const cardCollection = db.collection('cards')
+
     //Create Card
     app.post('/createCards', (req, res) => {
         cardCollection.insertOne(req.body)
@@ -28,14 +30,15 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
             .catch(error => console.error(error))
     })
 
+    //Query Card Data
     app.get('/', (req, res) => {
         db.collection('cards').find().toArray()
             .then(results => {
-            // console.log(results)
             res.render('index.ejs', { cards: results })
         })
         .catch(error => console.error(error))
     })
+
     //Edit Card
     app.put('/editCards', (req, res) => {
         cardCollection.findOneAndUpdate(
@@ -60,6 +63,7 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
         })
         .catch(error => console.error(error))
     })
+
     //Delete Card
     app.delete('/deleteCards', (req, res) => {
         cardCollection.deleteOne(
@@ -71,8 +75,6 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
             }
         )
         .then(result => {
-            // console.log(result)
-            console.log(result.deletedCount)
             if (result.deletedCount === 0) {
                 return res.json('No Card to Delete')
             }
@@ -80,6 +82,5 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
         })
         .catch(error => console.error(error))
     })
-
 })
 

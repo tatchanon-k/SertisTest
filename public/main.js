@@ -6,6 +6,7 @@ const deleteButton = document.querySelector('#delete-button')
 const editMessage = document.querySelector('#editMessage')
 const deleteMessage = document.querySelector('#deleteMessage')
 
+//Send edit request
 editButton.addEventListener('click', _ => {
     fetch('/editCards', {
         method: 'put',
@@ -31,6 +32,7 @@ editButton.addEventListener('click', _ => {
     })
 })
 
+//Send delete request
 deleteButton.addEventListener('click', _ => {
     fetch('/deleteCards', {
         method: 'delete',
