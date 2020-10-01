@@ -23,11 +23,11 @@ app.listen(3000, function() {
 MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
     if (err) return console.error(err)
     console.log('Connected to Database')
-    const db = client.db('star-wars-quotes')
-    const quotesCollection = db.collection('quotes')
+    const db = client.db('sertis-test')
+    const cardCollection = db.collection('cards')
 
-    app.post('/quotes', (req, res) => {
-        quotesCollection.insertOne(req.body)
+    app.post('/createCard', (req, res) => {
+        cardCollection.insertOne(req.body)
             .then(result => {
                 res.redirect('/')
                 console.log("Sent Data")
@@ -36,18 +36,17 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
     })
 
     app.get('/', (req, res) => {
-        // res.sendFile('/Users/lunla/Documents/Github/SertisTest' + '/index.html')
-        db.collection('quotes').find().toArray()
+        db.collection('cards').find().toArray()
             .then(results => {
-            // console.log(results)
-            res.render('index.ejs', { quotes: results })
+            console.log(results)
+            res.render('index.ejs', { cards: results })
         })
         .catch(error => console.error(error))
         // res.render('index.ejs', {})
     })
 
     app.put('/quotes', (req, res) => {
-        quotesCollection.findOneAndUpdate(
+        cardCollection.findOneAndUpdate(
             { name: 'Yoda' },
             {
                 $set: {
@@ -66,7 +65,7 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
     })
 
     app.delete('/quotes', (req, res) => {
-        quotesCollection.deleteOne(
+        cardCollection.deleteOne(
           { name: req.body.name }
         )
         .then(result => {
