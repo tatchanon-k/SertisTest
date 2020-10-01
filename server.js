@@ -13,20 +13,13 @@ app.listen(3000, function() {
     console.log('listening on 3000')
 })
 
-
-// app.get('/', (req, res) => {
-//     res.sendFile('/Users/lunla/Documents/Github/SertisTest' + '/index.html')
-//     // Note: __dirname is the current directory you're in. Try logging it and see what you get!
-//     // Mine was '/Users/zellwk/Projects/demo-repos/crud-express-mongo' for this app.
-// })
-
 MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
     if (err) return console.error(err)
     console.log('Connected to Database')
     const db = client.db('sertis-test')
     const cardCollection = db.collection('cards')
 
-    app.post('/createCard', (req, res) => {
+    app.post('/createCards', (req, res) => {
         cardCollection.insertOne(req.body)
             .then(result => {
                 res.redirect('/')
@@ -38,7 +31,7 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
     app.get('/', (req, res) => {
         db.collection('cards').find().toArray()
             .then(results => {
-            console.log(results)
+            // console.log(results)
             res.render('index.ejs', { cards: results })
         })
         .catch(error => console.error(error))
@@ -59,7 +52,6 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
         )
         .then(result => {
             // console.log(result)
-            // res.json('Success')
             res.json('Success')
         })
         .catch(error => console.error(error))
@@ -84,15 +76,22 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
     //     .catch(error => console.error(error))
     // })
 
-    app.delete('/quotes', (req, res) => {
+    app.delete('/deleteCards', (req, res) => {
+
         cardCollection.deleteOne(
-          { name: req.body.name }
+          { author: req.body.author,
+            name: req.body.name,
+            status: req.body.status,
+            content: req.body.content,
+            category: req.body.category, 
+            }
         )
         .then(result => {
+            // console.log(result)
             if (result.deletedCount === 0) {
-              return res.json('No quote to delete')
+              return res.json('No Card to Delete')
             }
-            res.json(`Deleted Darth Vadar's quote`)
+            res.json(`Delete Card`)
         })
         .catch(error => console.error(error))
     })

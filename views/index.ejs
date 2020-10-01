@@ -41,7 +41,7 @@
     <div>
         <h2>Edit Card</h2>
         <p>
-          Edit Card Information
+          Edit Card Information with author ownership
         </p>
         <form action="/editCards" method="POST">
             <input type="text" placeholder="name" name="name" />
@@ -49,17 +49,23 @@
             <input type="text" placeholder="content" name="content" />
             <input type="text" placeholder="category" name="category" />
             <input type="text" placeholder="author" name="author" />
-            <button type="submit">Submit</button>
+            <button type="submit">Edit Card</button>
         </form>
         <!-- <button id="update-button">Replace Yoda's quote</button> -->
     </div>
     <div>
-        <h2>Remove Darth Vadar!</h2>
+        <h2>Remove Card</h2>
         <p>
-          Delete one Darth Vadar's quote. Does nothing if there are no more Darth
-          Vadar's quote
+          Remove Card with author ownership
         </p>
-        <button id="delete-button">Delete Darth Vadar's quote</button>
+        <form id="delete-form">
+            <input type="text" placeholder="name" name="name" />
+            <input type="text" placeholder="status" name="status" />
+            <input type="text" placeholder="content" name="content" />
+            <input type="text" placeholder="category" name="category" />
+            <input type="text" placeholder="author" name="author" />
+            <button id="delete-button">Delete Card</button>
+        </form>
     </div>
     <div id="message"></div>
     <script src="/main.js"></script>
