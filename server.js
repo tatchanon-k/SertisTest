@@ -44,16 +44,18 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
         .catch(error => console.error(error))
     })
 
-    app.put('/quotes', (req, res) => {
+    app.post('/editCards', (req, res) => {
         cardCollection.findOneAndUpdate(
-            { name: 'Yoda' },
+            { author: req.body.author },
             {
                 $set: {
                     name: req.body.name,
-                    quote: req.body.quote
+                    status: req.body.status,
+                    content: req.body.content,
+                    category: req.body.category,
                 }
-            },
-            { upsert: true }
+            }
+            // { upsert: true }
         )
         .then(result => {
             // console.log(result)
@@ -62,6 +64,25 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
         })
         .catch(error => console.error(error))
     })
+
+    // app.put('/quotes', (req, res) => {
+    //     cardCollection.findOneAndUpdate(
+    //         { name: 'Yoda' },
+    //         {
+    //             $set: {
+    //                 name: req.body.name,
+    //                 quote: req.body.quote
+    //             }
+    //         },
+    //         { upsert: true }
+    //     )
+    //     .then(result => {
+    //         // console.log(result)
+    //         // res.json('Success')
+    //         res.json('Success')
+    //     })
+    //     .catch(error => console.error(error))
+    // })
 
     app.delete('/quotes', (req, res) => {
         cardCollection.deleteOne(

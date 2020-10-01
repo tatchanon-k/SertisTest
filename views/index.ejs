@@ -39,11 +39,19 @@
     <% } %>
     </ul>
     <div>
-        <h2>Darth Vadar invades!</h2>
+        <h2>Edit Card</h2>
         <p>
-          Replace first Yoda's quote with a quote written by Darth Vadar
+          Edit Card Information
         </p>
-        <button id="update-button">Replace Yoda's quote</button>
+        <form action="/editCards" method="POST">
+            <input type="text" placeholder="name" name="name" />
+            <input type="text" placeholder="status" name="status" />
+            <input type="text" placeholder="content" name="content" />
+            <input type="text" placeholder="category" name="category" />
+            <input type="text" placeholder="author" name="author" />
+            <button type="submit">Submit</button>
+        </form>
+        <!-- <button id="update-button">Replace Yoda's quote</button> -->
     </div>
     <div>
         <h2>Remove Darth Vadar!</h2>
