@@ -24,12 +24,17 @@
     <% for(var i = 0; i < cards.length; i++) {%>
         <li class="cards">
         <!-- Output name from the iterated quote object -->
-        <span><%= cards[i].name %></span>:
+        <span>Name :</span>
+        <span><%= cards[i].name %></span><br>
         <!-- Output quote from the iterated quote object -->
-        <span><%= cards[i].status %></span>
-        <span><%= cards[i].content %></span>
-        <span><%= cards[i].category %></span>
-        <span><%= cards[i].author %></span>
+        <span>Status :</span>
+        <span><%= cards[i].status %></span><br>
+        <span>Content :</span>
+        <span><%= cards[i].content %></span><br>
+        <span>Category :</span>
+        <span><%= cards[i].category %></span><br>
+        <span>Author :</span>
+        <span><%= cards[i].author %></span><br>
         </li>
     <% } %>
     </ul>

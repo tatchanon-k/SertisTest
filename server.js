@@ -42,7 +42,6 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
             res.render('index.ejs', { cards: results })
         })
         .catch(error => console.error(error))
-        // res.render('index.ejs', {})
     })
 
     app.put('/quotes', (req, res) => {
